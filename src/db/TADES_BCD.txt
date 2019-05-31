@@ -1,0 +1,71 @@
+create database TADES_BCD;
+
+use TADES_BCD;
+
+create table tbl_filial (
+    id_filial int not null primary key auto_increment,
+    logradouro varchar(75) not null,
+    numero int not null,
+    cep varchar(10) not null,
+    bairro varchar(50) not null,
+    cidade varchar(50) not null,
+    estado varchar(50) not null,
+    telefone varchar(15),
+    status int not null
+);
+
+create table tbl_setor(
+    id_setor int not null primary key auto_increment,
+    nome_setor varchar(50) not null
+);
+
+create table tbl_usuario(
+    id_usuario int not null primary key auto_increment,
+    nome varchar(75) not null,
+    email varchar(50) not null,
+    senha varchar(25) not null,
+    fk_filial int not null,
+    fk_setor int not null,
+    status int not null,
+    foreign key (fk_filial) references tbl_filial(id_filial),
+    foreign key (fk_setor) references tbl_setor(id_setor)
+);
+
+create table tbl_produtos(
+    id_produto int not null primary key auto_increment,
+    nome varchar(50) not null,
+    descricao varchar(100),
+    tipo varchar(10) not null,
+    fk_filial int not null,
+    qtd_estoque int not null,
+    valor_unidade double not null,
+    status int not null,
+    foreign key (fk_filial) references tbl_filial(id_filial)
+);
+
+create table tbl_venda(
+    id_venda int not null primary key auto_increment,
+    id_produto int not null,
+    id_usuario int not null,
+    id_filial int not null,
+    qtd_itens int not null,
+    cpf_cliente varchar(15),
+    data_venda datetime not null,
+    status int not null,
+    foreign key(id_usuario) references tbl_usuario(id_usuario),
+    foreign key(id_filial) references tbl_filial(id_filial)
+);
+
+SET @@GLOBAL.TIME_ZONE = '+03:00';
+
+INSERT INTO tbl_setor(nome_setor) VALUES ('TI');
+INSERT INTO tbl_setor(nome_setor) VALUES ('BackOffice');
+INSERT INTO tbl_setor(nome_setor) VALUES ('Gerente regional');
+INSERT INTO tbl_setor(nome_setor) VALUES ('Gerente global');
+INSERT INTO tbl_setor(nome_setor) VALUES ('Diretor');
+
+INSERT INTO tbl_filial(logradouro, numero, cep, bairro, cidade, estado, telefone, status)
+	VALUES ('Av. Eng. Eusebio Stevaux', 823, '04696000', 'Santo Amaro', 'São Paulo', 'SP', '1156827300', 0);
+
+INSERT INTO tbl_usuario(nome, email, senha, status, fk_filial, fk_setor)
+	VALUES ('Milena Flores', 'diretoria@email.com','123', 0, 1, 5);
