@@ -3,7 +3,6 @@ package ServletLogin;
 import DAO.UsuarioDAO;
 import Model.Usuario;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,9 +1,3 @@
-<%-- 
-Document   : listagem_usuarios
-Created on : 08/04/2019, 21:46:50
-Author     : nicolas.hgyoshioka
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>

@@ -6,8 +6,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Floricultura dos Brothers</title>
-<!--        <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="../assets/css/main.css"/>-->
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../assets/css/main.css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     </head>
     <body>
