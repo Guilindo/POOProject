@@ -43,12 +43,8 @@ public class LoginServlet extends HttpServlet {
             if (httpOK) {
                 Usuario infoSessao = UsuarioDAO.getInfoSessao(uEmail);
                 HttpSession sessao = request.getSession();
-                sessao.setAttribute("cdFuncionario", infoSessao.getCodigo());
-                sessao.setAttribute("nomeUsuario", infoSessao.getNome());
-                sessao.setAttribute("cdFilial", infoSessao.getCodigoFilial());
-                sessao.setAttribute("nomeFilial", infoSessao.getNomeFilial());
-
-                response.sendRedirect("../venda/cadastro_vendas");
+                //sessao.setAttribute("nomeUsuario", infoSessao.getNome());
+                response.sendRedirect("../produtos/cadastro_produtos.jsp");
             } else {
                 request.setAttribute("varMsg", true);
                 request.setAttribute("msg", "Usuário ou Senha não existem.");

@@ -19,19 +19,9 @@
             </h1>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <ul id="itensMenu" class="nav justify-content-center">
-                    <li class="nav-item">
-                        <form action="../venda/cadastro_vendas">
-                            <button type="submit" class="btn nav-link nav-text">Vendas</button>
-                        </form>                     
-                    </li>
                     <li >
                         <form action="../produtos/listagem_produtos" method="GET">
                             <button type="submit" class="btn nav-link nav-text" >Produtos</button>
-                        </form>
-                    </li>
-                    <li class="nav-item">
-                        <form action="../ti/listagem_filiais" method="GET">
-                            <button type="submit" class="btn nav-link nav-text" >Filiais</button>
                         </form>
                     </li>
                     <li class="nav-item">
@@ -87,7 +77,6 @@
                         <th class="coluna" scope="col">Codigo</th>
                         <th class="coluna" scope="col">Nome</th>
                         <th class="coluna" scope="col">Email</th>
-                        <th class="coluna" scope="col">Filial</th>
                         <th class="coluna" scope="col">Setor</th>
                         <th class="coluna" scope="col">Ações</th>
                     </tr>
@@ -101,7 +90,6 @@
                             <td class="coluna" name="codigo" ><c:out value="${usuarios.codigo}" /></td>
                             <td class="coluna" name="nome" ><c:out value="${usuarios.nome}" /></td>
                             <td class="coluna" name="email" ><c:out value="${usuarios.email}" /></td>
-                            <td class="coluna" name="filial"><c:out value="${usuarios.nomeFilial}"/></td>
                             <td class="coluna" name="setor" ><c:out value="${usuarios.nomeSetor}"/></td>
                             <td class="btn-group">
                                 <form action="dados_usuario" method="POST">

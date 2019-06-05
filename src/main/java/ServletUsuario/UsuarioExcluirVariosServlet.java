@@ -1,6 +1,5 @@
 package ServletUsuario;
 
-import DAO.FilialDAO;
 import DAO.UsuarioDAO;
 import Model.Usuario;
 import java.io.IOException;

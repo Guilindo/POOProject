@@ -1,8 +1,6 @@
 package ServletProduto;
 
-import DAO.FilialDAO;
 import DAO.ProdutoDAO;
-import Model.Filial;
 import Model.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +20,6 @@ public class ProdutoCadastroServlet extends HttpServlet {
         String fNome = request.getParameter("nome");
         String fDescricao = request.getParameter("descricao");
         String fTipo = request.getParameter("tipo");
-        String fCodigoFilial = request.getParameter("codigoFilial");
         String fQuantidadeEstoque = request.getParameter("quantidadeEstoque");
         String fValorUnitario = request.getParameter("valorUnitario");
 
@@ -34,10 +31,6 @@ public class ProdutoCadastroServlet extends HttpServlet {
         if (fTipo == null) {
             error = true;
             request.setAttribute("tipoErro", "Tipo não informado");
-        }
-        if (fCodigoFilial == null) {
-            error = true;
-            request.setAttribute("codigoFilialErro", "Filial não informada");
         }
         if (fQuantidadeEstoque.length() == 0) {
             error = true;
@@ -55,16 +48,13 @@ public class ProdutoCadastroServlet extends HttpServlet {
         }
 
         if (error) {
-            ArrayList<Filial> filiais = FilialDAO.getFiliais();
-            request.setAttribute("listaFiliais", filiais);
-
             request.setAttribute("varMsg", true);
             request.setAttribute("msg", "Erro ao realizar o cadastro, verifique os campos e tente novamente.");
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/produtos/cadastro_produtos.jsp");
             dispatcher.forward(request, response);
         } else {
-            Produto produtos = new Produto(fNome, fTipo, Integer.parseInt(fCodigoFilial), Integer.parseInt(fQuantidadeEstoque), Double.parseDouble(fValorUnitario));
+            Produto produtos = new Produto(fNome, fTipo, Integer.parseInt(fQuantidadeEstoque), Double.parseDouble(fValorUnitario));
             if (fDescricao.length() != 0) {
                 produtos.setDescricao(fDescricao);
             }

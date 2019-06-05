@@ -20,23 +20,13 @@
             <nav class="navbar navbar-expand-md navbar-light bg-warning mb-4">
                 <ul id="itensMenu" class="nav justify-content-center">
                     <li class="nav-item">
-                        <form action="../venda/cadastro_vendas" method="GET">
-                            <button type="submit" class="btn nav-link nav-text">Vendas</button>
-                        </form>                     
-                    </li>
-                    <li class="nav-item">
-                        <form action="../ti/listagem_filiais" method="GET">
-                            <button type="submit" class="btn nav-link nav-text" >Filiais</button>
-                        </form>
-                    </li>
-                    <li class="nav-item">
                         <form action="../ti/listagem_usuarios" method="GET">
                             <button type="submit" class="btn nav-link nav-text" >Usuarios</button>
                         </form>
                     </li>
                     <li class="nav-item">
                         <form action="../venda/carrega_relatorio" method="GET">
-                            <button type="submit" class="btn nav-link nav-text" >Relatorio</button>
+                            <button type="submit" class="btn nav-link nav-text" >Relatório</button>
                         </form>
                     </li>
                 </ul>
@@ -193,41 +183,6 @@
                                     </c:otherwise>
                                 </c:choose>
 
-                                <label for="filial" >Filial:</label>
-                                <c:choose>
-                                    <c:when test="${acao == 'editar'}">
-                                        <select class="custom-select inputForm" id="filial" name="codigoFilial">
-                                            <option hidden="" value="${cdFilialCadastrada}">${nomeFilialCadastrada}</option>
-                                            <c:forEach var="filiais" items="${listaFiliais}">
-                                                <option value="<c:out value="${filiais.codigo}"/>">
-                                                    <c:out value="${filiais.nomeFilial}"/>
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:if test="${empty codigoFilialErro}">
-                                            <select class="custom-select inputForm" id="filial" name="codigoFilial">
-                                                <option selected = "" disabled="" hidden="">Filial</option>
-                                                <c:forEach var="filiais" items="${listaFiliais}">
-                                                    <option value="<c:out value="${filiais.codigo}"/>">
-                                                        <c:out value="${filiais.nomeFilial}"/>
-                                                    </option>
-                                                </c:forEach>
-                                            </select>
-                                        </c:if>
-                                        <c:if test="${not empty codigoFilialErro}">
-                                            <select class="custom-select form-control inputForm error" id="filial" name="codigoFilial">
-                                                <option disabled="" hidden=""><c:out value="${codigoFilialErro}"/></option>
-                                                <c:forEach var="filiais" items="${listaFiliais}">
-                                                    <option value="<c:out value="${filiais.codigo}"/>">
-                                                        <c:out value="${filiais.nomeFilial}"/>
-                                                    </option>
-                                                </c:forEach>
-                                            </select>
-                                        </c:if>
-                                    </c:otherwise>
-                                </c:choose>
                             </div>
                             <button type="submit" class="btn btn-light btn-block">
                                 <i class="far fa-save"></i>

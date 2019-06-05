@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Floricultura dos Brothers</title>
+        <title>Floricultura TADES</title>
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="../assets/css/main.css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -72,7 +72,7 @@
                         </div>
 
                         <button class="btn btn-lg btn-warning btn-block" type="submit">Sign in</button>
-                        <p class="mt-5 mb-3 text-center subtitulo">&copy; Project Brother Ltda. </p>
+                        <p class="mt-5 mb-3 text-center subtitulo">&copy; Project Solutions Ltda. </p>
                     </form>
                 </div>
                 <div class="col-md-3"></div>

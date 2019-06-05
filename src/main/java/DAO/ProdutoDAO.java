@@ -16,15 +16,14 @@ public class ProdutoDAO {
         Connection conn = db.obterConexao();
         try {
             PreparedStatement query = conn.prepareStatement("INSERT INTO"
-                    + " tbl_produtos(nome, descricao, tipo, fk_filial, qtd_estoque, valor_unidade, status)"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?);");
+                    + " tbl_produtos(nome, descricao, tipo, qtd_estoque, valor_unidade, status)"
+                    + "VALUES (?, ?, ?, ?, ?, ?);");
             query.setString(1, p.getNome());
             query.setString(2, p.getDescricao());
             query.setString(3, p.getTipo());
-            query.setInt(4, p.getCodigoFilial());
-            query.setInt(5, p.getQuantidadeEstoque());
-            query.setDouble(6, p.getValorUnitario());
-            query.setInt(7, 0);
+            query.setInt(4, p.getQuantidadeEstoque());
+            query.setDouble(5, p.getValorUnitario());
+            query.setInt(6, 0);
 
             int rs = query.executeUpdate();
             conn.close();
@@ -44,17 +43,15 @@ public class ProdutoDAO {
                     + " nome = ?,"
                     + " descricao = ?,"
                     + " tipo = ?,"
-                    + " fk_filial = ?,"
                     + " qtd_estoque = ?,"
                     + " valor_unidade = ? WHERE id_produto = ?;");
 
             query.setString(1, produto.getNome());
             query.setString(2, produto.getDescricao());
             query.setString(3, produto.getTipo());
-            query.setInt(4, produto.getCodigoFilial());
-            query.setInt(5, produto.getQuantidadeEstoque());
-            query.setDouble(6, produto.getValorUnitario());
-            query.setInt(7, produto.getCodigo());
+            query.setInt(4, produto.getQuantidadeEstoque());
+            query.setDouble(5, produto.getValorUnitario());
+            query.setInt(6, produto.getCodigo());
 
             int linhasAfetadas = query.executeUpdate();
             conn.close();
@@ -112,10 +109,9 @@ public class ProdutoDAO {
         Connection conn = db.obterConexao();
         try {
             PreparedStatement query = conn.prepareStatement("SELECT p.id_produto, p.nome, p.descricao, p.tipo,"
-                    + " p.fk_filial, p.qtd_estoque, p.valor_unidade,"
+                    + " p.qtd_estoque, p.valor_unidade,"
                     + " CONCAT(cidade, \" - \", estado) \n"
-                    + " FROM tbl_produtos AS p INNER JOIN tbl_filial AS f"
-                    + " ON p.fk_filial = f.id_filial WHERE p.status = 0;");
+                    + " FROM tbl_produtos WHERE p.status = 0;");
 
             ResultSet rs = query.executeQuery();
 
@@ -127,9 +123,7 @@ public class ProdutoDAO {
                             rs.getString(3),
                             rs.getString(4),
                             rs.getInt(5),
-                            rs.getInt(6),
-                            rs.getDouble(7));
-                    produto.setNomeFilial(rs.getString(8));
+                            rs.getDouble(6));
                     produtos.add(produto);
 
                 }
@@ -149,9 +143,9 @@ public class ProdutoDAO {
         Connection conn = db.obterConexao();
         try {
             PreparedStatement query = conn.prepareStatement("SELECT p.id_produto, p.nome, p.descricao,"
-                    + " p.tipo, p.fk_filial, p.qtd_estoque, p.valor_unidade,"
+                    + " p.tipo, p.qtd_estoque, p.valor_unidade,"
                     + " CONCAT(cidade, \" - \", estado) \n"
-                    + " FROM tbl_produtos AS p INNER JOIN tbl_filial AS f ON p.fk_filial = f.id_filial\n"
+                    + " FROM tbl_produtos"
                     + " WHERE p.id_produto = ? AND p.status = 0;");
 
             query.setInt(1, codigo);
@@ -165,10 +159,8 @@ public class ProdutoDAO {
                             rs.getString(3),
                             rs.getString(4),
                             rs.getInt(5),
-                            rs.getInt(6),
-                            rs.getDouble(7)
+                            rs.getDouble(6)
                     );
-                    prod.setNomeFilial(rs.getString(8));
                     produto = prod;
                 }
             }

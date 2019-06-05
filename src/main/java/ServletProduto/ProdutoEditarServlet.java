@@ -1,8 +1,6 @@
 package ServletProduto;
 
-import DAO.FilialDAO;
 import DAO.ProdutoDAO;
-import Model.Filial;
 import Model.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +21,6 @@ public class ProdutoEditarServlet extends HttpServlet {
         String fNome = request.getParameter("nome");
         String fDescricao = request.getParameter("descricao");
         String fTipo = request.getParameter("tipo");
-        String fCodigoFilial = request.getParameter("codigoFilial");
         String fQuantidadeEstoque = request.getParameter("quantidadeEstoque");
         String fValorUnitario = request.getParameter("valorUnitario");
 
@@ -39,10 +36,6 @@ public class ProdutoEditarServlet extends HttpServlet {
         if (fTipo.length() == 0) {
             error = true;
             request.setAttribute("TipoErro", "Tipo não informado");
-        }
-        if (fCodigoFilial.length() == 0) {
-            error = true;
-            request.setAttribute("filialErro", "Filial não informada");
         }
         if (fQuantidadeEstoque.length() == 0) {
             error = true;
@@ -61,7 +54,6 @@ public class ProdutoEditarServlet extends HttpServlet {
 
         if (error) {
             Produto produto = ProdutoDAO.getProduto(Integer.parseInt(fCodigo));
-            ArrayList<Filial> filiais = FilialDAO.getFiliais();
 
             request.setAttribute("acao", "editar");
             request.setAttribute("codigo", produto.getCodigo());
@@ -69,9 +61,6 @@ public class ProdutoEditarServlet extends HttpServlet {
             request.setAttribute("descricao", produto.getDescricao());
             request.setAttribute("tipo", produto.getTipo());
             request.setAttribute("tipoCadastrado", produto.getTipo());
-            request.setAttribute("cdFilialCadastrada", produto.getCodigoFilial());
-            request.setAttribute("nomeFilialCadastrada", produto.getNomeFilial());
-            request.setAttribute("listaFiliais", filiais);
             request.setAttribute("qtd_estoque", produto.getQuantidadeEstoque());
             
             String valor_unitario = String.valueOf(produto.getValorUnitario()).replace(".", ",");
@@ -83,7 +72,7 @@ public class ProdutoEditarServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/produtos/cadastro_produtos.jsp");
             dispatcher.forward(request, response);
         } else {
-            Produto produto = new Produto(fNome, fTipo, Integer.parseInt(fCodigoFilial), Integer.parseInt(fQuantidadeEstoque), Double.parseDouble(fValorUnitario));
+            Produto produto = new Produto(fNome, fTipo, Integer.parseInt(fQuantidadeEstoque), Double.parseDouble(fValorUnitario));
             if (fDescricao.length() != 0) {
                 produto.setDescricao(fDescricao);
             }

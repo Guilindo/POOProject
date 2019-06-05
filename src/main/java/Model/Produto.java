@@ -6,37 +6,32 @@ public class Produto {
     private String nome;
     private String descricao;
     private String tipo;
-    private int codigoFilial;
-    private String nomeFilial;
     private int quantidadeEstoque;
     private double valorUnitario;
 
     public Produto() {
     }
 
-    public Produto(String nome,String tipo, int codigoFilialint, int quantidadeEstoque, double valorUnitario) {
+    public Produto(String nome,String tipo,  int quantidadeEstoque, double valorUnitario) {
         this.nome = nome;
-        this.codigoFilial = codigoFilialint;
         this.quantidadeEstoque = quantidadeEstoque;
         this.valorUnitario = valorUnitario;
         this.tipo = tipo;
     }
     
-    public Produto(String nome, String descricao, String tipo, int codigoFilialint, int quantidadeEstoque, double valorUnitario) {
+    public Produto(String nome, String descricao, String tipo, int quantidadeEstoque, double valorUnitario) {
         this.nome = nome;
         this.descricao = descricao;
-        this.codigoFilial = codigoFilialint;
         this.quantidadeEstoque = quantidadeEstoque;
         this.valorUnitario = valorUnitario;
         this.tipo = tipo;
     }
 
-    public Produto(int codigo, String nome, String descricao, String tipo, int codigoFilialint, int quantidadeEstoque, double valorUnitario) {
+    public Produto(int codigo, String nome, String descricao, String tipo, int quantidadeEstoque, double valorUnitario) {
         this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
         this.quantidadeEstoque = quantidadeEstoque;
-        this.codigoFilial = codigoFilialint;
         this.valorUnitario = valorUnitario;
         this.tipo = tipo;
     }
@@ -87,22 +82,6 @@ public class Produto {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public int getCodigoFilial() {
-        return codigoFilial;
-    }
-
-    public String getNomeFilial() {
-        return nomeFilial;
-    }
-
-    public void setNomeFilial(String nomeFilial) {
-        this.nomeFilial = nomeFilial;
-    }
-
-    public void setCodigoFilial(int codigoFilial) {
-        this.codigoFilial = codigoFilial;
     }
 
 }

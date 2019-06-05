@@ -21,16 +21,12 @@ public class UsuarioSelectEditServlet extends HttpServlet {
         Usuario usuario = UsuarioDAO.getUsuario(Integer.parseInt(cCodigo));
        
         ArrayList<Usuario> setores = UsuarioDAO.getSetoresCadastro();   
-        ArrayList<Usuario> filiais = UsuarioDAO.getFiliaisCadastro();
         
         request.setAttribute("acao", "editar");
         request.setAttribute("codigo", usuario.getCodigo());
         request.setAttribute("nome", usuario.getNome());
         request.setAttribute("email", usuario.getEmail());
         request.setAttribute("senha", usuario.getSenha());
-        request.setAttribute("codigoFilial", usuario.getCodigoFilial());
-        request.setAttribute("nomeFilial", usuario.getNomeFilial());
-        request.setAttribute("listaFiliais", filiais);
         request.setAttribute("setor", usuario.getSetor());
         request.setAttribute("nomeSetor", usuario.getNomeSetor());
         request.setAttribute("listaSetores", setores);

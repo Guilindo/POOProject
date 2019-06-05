@@ -23,7 +23,6 @@ public class UsuarioEditarServlet extends HttpServlet {
         String cSenha = request.getParameter("senha");
         String cConfirmacaoSenha = request.getParameter("confirmarSenha");
         String cSetor = request.getParameter("codigoSetor");
-        String cFilial = request.getParameter("codigoFilial");
 
         boolean error = false;
         if (cNome.length() == 0) {
@@ -46,10 +45,6 @@ public class UsuarioEditarServlet extends HttpServlet {
             error = true;
             request.setAttribute("setorErro", "Setor não informado");
         }
-        if (cFilial == null) {
-            error = true;
-            request.setAttribute("filialErro", "Filial não informada");
-        }
         if (!error) {        
             if (!cConfirmacaoSenha.equals(cSenha)) {
                 error = true;
@@ -63,16 +58,12 @@ public class UsuarioEditarServlet extends HttpServlet {
             Usuario usuario = UsuarioDAO.getUsuario(Integer.parseInt(cCodigo));
 
             ArrayList<Usuario> setores = UsuarioDAO.getSetoresCadastro();
-            ArrayList<Usuario> filiais = UsuarioDAO.getFiliaisCadastro();
 
             request.setAttribute("acao", "editar");
             request.setAttribute("codigo", usuario.getCodigo());
             request.setAttribute("nome", usuario.getNome());
             request.setAttribute("email", usuario.getEmail());
             request.setAttribute("senha", usuario.getSenha());
-            request.setAttribute("codigoFilial", usuario.getCodigoFilial());
-            request.setAttribute("nomeFilial", usuario.getNomeFilial());
-            request.setAttribute("listaFiliais", filiais);
             request.setAttribute("setor", usuario.getSetor());
             request.setAttribute("nomeSetor", usuario.getNomeSetor());
             request.setAttribute("listaSetores", setores);
@@ -83,7 +74,7 @@ public class UsuarioEditarServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/ti/cadastro_usuarios.jsp");
             dispatcher.forward(request, response);
         } else {
-            Usuario usuario = new Usuario(cNome, cEmail, cSenha, Integer.parseInt(cFilial), Integer.parseInt(cSetor));
+            Usuario usuario = new Usuario(cNome, cEmail, cSenha, Integer.parseInt(cSetor));
             usuario.setCodigo(Integer.parseInt(cCodigo));
             boolean httpOK = UsuarioDAO.alterarUsuario(usuario);
 

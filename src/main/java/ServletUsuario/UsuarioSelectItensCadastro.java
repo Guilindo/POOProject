@@ -19,10 +19,6 @@ public class UsuarioSelectItensCadastro extends HttpServlet {
         
         ArrayList<Usuario> setores  = UsuarioDAO.getSetoresCadastro();
         request.setAttribute("listaSetores", setores);
-        
-        ArrayList<Usuario> filiais  = UsuarioDAO.getFiliaisCadastro();
-        request.setAttribute("listaFiliais", filiais);
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("/ti/cadastro_usuarios.jsp");
         dispatcher.forward(request, response);
 

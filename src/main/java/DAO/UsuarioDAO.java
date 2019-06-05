@@ -16,15 +16,14 @@ public class UsuarioDAO {
         Connection conn = db.obterConexao();
         try {
             PreparedStatement query = conn.prepareStatement("INSERT INTO "
-                    + " tbl_usuario(nome, email, senha, fk_filial, fk_setor, status) "
-                    + "VALUES (?, ?, ?, ?, ?, ?);");
+                    + " tbl_usuario(nome, email, senha, fk_setor, status) "
+                    + "VALUES (?, ?, ?, ?, ?);");
 
             query.setString(1, u.getNome());
             query.setString(2, u.getEmail());
             query.setString(3, u.getSenha());
-            query.setInt(4, u.getCodigoFilial());
-            query.setInt(5, u.getSetor());
-            query.setInt(6, 0);
+            query.setInt(4, u.getSetor());
+            query.setInt(5, 0);
 
             int rs = query.executeUpdate();
 
@@ -41,14 +40,13 @@ public class UsuarioDAO {
         Connection conn = db.obterConexao();
         try {
             PreparedStatement query = conn.prepareStatement("UPDATE"
-                    + " tbl_usuario SET nome = ?, email = ?, senha = ?, fk_filial = ?, fk_setor = ? WHERE id_usuario = ?;");
+                    + " tbl_usuario SET nome = ?, email = ?, senha = ?, fk_setor = ? WHERE id_usuario = ?;");
 
             query.setString(1, u.getNome());
             query.setString(2, u.getEmail());
             query.setString(3, u.getSenha());
-            query.setInt(4, u.getCodigoFilial());
-            query.setInt(5, u.getSetor());
-            query.setInt(6, u.getCodigo());
+            query.setInt(4, u.getSetor());
+            query.setInt(5, u.getCodigo());
 
             int rs = query.executeUpdate();
             conn.close();
@@ -108,7 +106,6 @@ public class UsuarioDAO {
                     + "    u.fk_filial, u.fk_setor, s.nome_setor, CONCAT(cidade, \" - \", estado)\n"
                     + "    FROM tbl_usuario AS u INNER JOIN tbl_setor AS s ON \n"
                     + "    u.fk_setor = s.id_setor \n"
-                    + "    INNER JOIN tbl_filial AS f ON u.fk_filial = f.id_filial\n"
                     + "    WHERE u.status = 0;");
 
             ResultSet rs = query.executeQuery();
@@ -120,11 +117,9 @@ public class UsuarioDAO {
                             rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
-                            rs.getInt(5),
-                            rs.getInt(6)
+                            rs.getInt(5)
                     );
-                    user.setNomeSetor(rs.getString(7));
-                    user.setNomeFilial(rs.getString(8));
+                    user.setNomeSetor(rs.getString(6));
                     usuarios.add(user);
 
                 }
@@ -142,11 +137,10 @@ public class UsuarioDAO {
         Connection conn = db.obterConexao();
         try {
             PreparedStatement query = conn.prepareStatement("SELECT u.id_usuario, u.nome, u.email, u.senha,"
-                    + " u.fk_filial, u.fk_setor, s.nome_setor, CONCAT(cidade, \" - \", estado)\n"
+                    + " u.fk_setor, s.nome_setor, CONCAT(cidade, \" - \", estado)\n"
                     + " FROM tbl_usuario AS u INNER JOIN tbl_setor AS s ON "
                     + " u.fk_setor = s.id_setor "
-                    + " INNER JOIN tbl_filial AS f ON u.fk_filial = f.id_filial "
-                    + " where u.id_usuario = ? AND u.status = 0;");
+                    + " WHERE u.id_usuario = ? AND u.status = 0;");
 
             query.setInt(1, codigoUsuario);
             ResultSet rs = query.executeQuery();
@@ -157,10 +151,8 @@ public class UsuarioDAO {
                             rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
-                            rs.getInt(5),
-                            rs.getInt(6));
-                    user.setNomeSetor(rs.getString(7));
-                    user.setNomeFilial(rs.getString(8));
+                            rs.getInt(5));
+                    user.setNomeSetor(rs.getString(6));
                     usuarios = user;
                 }
             }
@@ -196,31 +188,6 @@ public class UsuarioDAO {
         return setores;
     }
 
-    public static ArrayList<Usuario> getFiliaisCadastro() {
-        ArrayList<Usuario> filiais = new ArrayList<>();
-        Connection conn = db.obterConexao();
-        try {
-            PreparedStatement query = conn.prepareStatement("SELECT id_filial, CONCAT(cidade, \" - \", estado) FROM tbl_filial WHERE status = 0;");
-
-            ResultSet rs = query.executeQuery();
-
-            if (rs != null) {
-                while (rs.next()) {
-                    Usuario user = new Usuario();
-                    user.setCodigoFilial(rs.getInt(1));
-                    user.setNomeFilial(rs.getString(2));
-                    filiais.add(user);
-                }
-            }
-
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-
-        return filiais;
-    }
-
     public static boolean getLogin(String email, String senha) {
         Connection conn = db.obterConexao();
         try {
@@ -243,9 +210,9 @@ public class UsuarioDAO {
         Usuario sessao = null;
         Connection conn = db.obterConexao();
         try {
-            PreparedStatement query = conn.prepareStatement(" SELECT u.id_usuario, u.nome, u.email, u.fk_filial, u.fk_setor, \n"
-                    + " concat(f.cidade, \" - \", f.estado) FROM tbl_usuario as u \n"
-                    + " inner join tbl_filial as f on u.fk_filial = f.id_filial where email = ?;");
+            PreparedStatement query = conn.prepareStatement(" SELECT u.id_usuario, u.nome, u.email, u.fk_setor, \n"
+                    + " concat(f.cidade, \" - \", f.estado) FROM tbl_usuario"
+                    + " where email = ?;");
 
          
             query.setString(1, uEmail);
@@ -256,9 +223,7 @@ public class UsuarioDAO {
                 sessao.setCodigo(rs.getInt(1));
                 sessao.setNome(rs.getString(2));
                 sessao.setEmail(rs.getString(3));
-                sessao.setCodigoFilial(rs.getInt(4));
-                sessao.setSetor(rs.getInt(5));
-                sessao.setNomeFilial(rs.getString(6));
+                sessao.setSetor(rs.getInt(4));
             }
             conn.close();
         } catch (SQLException e) {
